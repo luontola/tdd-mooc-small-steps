@@ -3,13 +3,13 @@ import express from "express";
 function createApp(database) {
   const app = express();
 
-  app.put("/prices", async (req, res) => {
+  app.put("/prices", (req, res) => {
     const liftPassCost = req.query.cost;
     const liftPassType = req.query.type;
     database.setBasePrice(liftPassType, liftPassCost);
     res.json();
   });
-  app.get("/prices", async (req, res) => {
+  app.get("/prices", (req, res) => {
     const result = database.findBasePriceByType(req.query.type);
 
     let reduction;
