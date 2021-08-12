@@ -1,4 +1,4 @@
-const { createApp } = require('./src/prices');
+import {createApp} from "./src/prices.mjs";
 
 createApp().
     then(({ app, connection }) => app.listen(5010));

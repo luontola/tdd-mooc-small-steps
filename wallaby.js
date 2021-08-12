@@ -1,10 +1,10 @@
 module.exports = w => ({
     files: [
-        'src/**/*.ts',
+        'src/**/*.mjs',
     ],
 
     tests: [
-        'test/**/*.spec.ts'
+        'test/**/*.spec.mjs'
     ],
 
     env: {

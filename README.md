@@ -14,6 +14,10 @@ To run the tests:
 
     npm test
 
+To run the tests continuously:
+
+    npm run autotest
+
 To start the application:
 
     npm start

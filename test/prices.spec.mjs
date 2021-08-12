@@ -1,4 +1,4 @@
-import {createApp} from "../src/prices"
+import {createApp} from "../src/prices.mjs"
 import request from 'supertest'
 import {expect} from 'chai';
 
