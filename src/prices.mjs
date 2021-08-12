@@ -9,39 +9,41 @@ function parseDate(dateString) {
 function createApp(database) {
   const app = express();
 
+  function isHoliday(date) {
+    const holidays = database.getHolidays();
+    for (let row of holidays) {
+      let holiday = new Date(row.holiday);
+      if (
+        date &&
+        date.getFullYear() === holiday.getFullYear() &&
+        date.getMonth() === holiday.getMonth() &&
+        date.getDate() === holiday.getDate()
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   app.put("/prices", (req, res) => {
     const liftPassCost = req.query.cost;
     const liftPassType = req.query.type;
     database.setBasePrice(liftPassType, liftPassCost);
     res.json();
   });
+
   app.get("/prices", (req, res) => {
     const date = parseDate(req.query.date);
     const result = database.findBasePriceByType(req.query.type);
     const baseCost = result.cost;
 
     let reduction;
-    let isHoliday;
     if (req.query.age < 6) {
       res.json({ cost: 0 });
     } else {
       reduction = 0;
       if (req.query.type !== "night") {
-        const holidays = database.getHolidays();
-
-        for (let row of holidays) {
-          let holiday = new Date(row.holiday);
-          if (
-            date &&
-            date.getFullYear() === holiday.getFullYear() &&
-            date.getMonth() === holiday.getMonth() &&
-            date.getDate() === holiday.getDate()
-          ) {
-            isHoliday = true;
-          }
-        }
-
-        if (date && !isHoliday && date.getDay() === 1) {
+        if (date && !isHoliday(date) && date.getDay() === 1) {
           reduction = 35;
         }
 
