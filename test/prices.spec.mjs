@@ -1,18 +1,15 @@
 import { createApp } from "../src/prices.mjs";
+import { InMemoryDatabase } from "../src/database.mjs";
 import request from "supertest";
 import { expect } from "chai";
 
 describe("prices", () => {
-  let app, connection;
+  let app;
 
   beforeEach(async () => {
-    ({ connection, app } = await createApp());
+    app = createApp(new InMemoryDatabase().withTestData());
     await request(app).put("/prices?type=1jour&cost=35").expect(200);
     await request(app).put("/prices?type=night&cost=19").expect(200);
-  });
-
-  afterEach(async () => {
-    await connection.close();
   });
 
   it("default cost", async () => {

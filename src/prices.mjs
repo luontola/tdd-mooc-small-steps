@@ -1,35 +1,16 @@
 import express from "express";
-import mysql from "mysql2/promise";
 
-async function createApp() {
+function createApp(database) {
   const app = express();
-
-  let connectionOptions = {
-    host: "localhost",
-    user: "root",
-    database: "lift_pass",
-    password: "mysql",
-  };
-  const connection = await mysql.createConnection(connectionOptions);
 
   app.put("/prices", async (req, res) => {
     const liftPassCost = req.query.cost;
     const liftPassType = req.query.type;
-    const [rows, fields] = await connection.query(
-      "INSERT INTO `base_price` (type, cost) VALUES (?, ?) " +
-        "ON DUPLICATE KEY UPDATE cost = ?",
-      [liftPassType, liftPassCost, liftPassCost]
-    );
-
+    database.setBasePrice(liftPassType, liftPassCost);
     res.json();
   });
   app.get("/prices", async (req, res) => {
-    const result = (
-      await connection.query(
-        "SELECT cost FROM `base_price` " + "WHERE `type` = ? ",
-        [req.query.type]
-      )
-    )[0][0];
+    const result = database.findBasePriceByType(req.query.type);
 
     let reduction;
     let isHoliday;
@@ -38,12 +19,10 @@ async function createApp() {
     } else {
       reduction = 0;
       if (req.query.type !== "night") {
-        const holidays = (
-          await connection.query("SELECT * FROM `holidays`")
-        )[0];
+        const holidays = database.getHolidays();
 
         for (let row of holidays) {
-          let holiday = row.holiday;
+          let holiday = new Date(row.holiday);
           if (req.query.date) {
             let d = new Date(req.query.date);
             if (
@@ -90,7 +69,7 @@ async function createApp() {
       }
     }
   });
-  return { app, connection };
+  return app;
 }
 
 export { createApp };
