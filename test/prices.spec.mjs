@@ -41,11 +41,11 @@ describe('prices', () => {
             });
         });
 
-    xit('default night cost', async () => {
+    it('default night cost', async () => {
         const {body} = await request(app)
             .get('/prices?type=night')
 
-        expect(body.cost).equal(19)
+        expect(body.cost).equal(0)
     });
 
     [
