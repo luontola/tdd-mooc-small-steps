@@ -1,56 +1,42 @@
 import express from "express";
 
-function parseDate(dateString) {
-  if (dateString) {
-    return new Date(dateString);
-  }
-}
-
 function createApp(database) {
   function calculateCost(age, type, date, baseCost) {
-    if (age < 6) {
-      return 0;
+    if (type === "night") {
+      return calculateCostForNightTicket(age, baseCost);
     } else {
-      if (type === "night") {
-        return calculateCostForNightTicket(age, type, baseCost);
-      } else {
-        return calculateCostForDayTicket(age, date, baseCost);
-      }
+      return calculateCostForDayTicket(age, date, baseCost);
     }
   }
 
-  function calculateCostForNightTicket(age, type, baseCost) {
-    if (age >= 6) {
-      if (age > 64) {
-        return Math.ceil(baseCost * 0.4);
-      } else {
-        return baseCost;
-      }
-    } else {
+  function calculateCostForNightTicket(age, baseCost) {
+    if (age === undefined) {
       return 0;
     }
+    if (age < 6) {
+      return 0;
+    }
+    if (age > 64) {
+      return Math.ceil(baseCost * 0.4);
+    }
+    return baseCost;
   }
 
   function calculateCostForDayTicket(age, date, baseCost) {
     let reduction = calculateReduction(date);
-
-    // TODO apply reduction for others
+    if (age === undefined) {
+      return Math.ceil(baseCost * (1 - reduction / 100));
+    }
+    if (age < 6) {
+      return 0;
+    }
     if (age < 15) {
       return Math.ceil(baseCost * 0.7);
-    } else {
-      if (age === undefined) {
-        let cost = baseCost * (1 - reduction / 100);
-        return Math.ceil(cost);
-      } else {
-        if (age > 64) {
-          let cost = baseCost * 0.75 * (1 - reduction / 100);
-          return Math.ceil(cost);
-        } else {
-          let cost = baseCost * (1 - reduction / 100);
-          return Math.ceil(cost);
-        }
-      }
     }
+    if (age > 64) {
+      return Math.ceil(baseCost * 0.75 * (1 - reduction / 100));
+    }
+    return Math.ceil(baseCost * (1 - reduction / 100));
   }
 
   function calculateReduction(date) {
@@ -79,6 +65,12 @@ function createApp(database) {
       }
     }
     return false;
+  }
+
+  function parseDate(dateString) {
+    if (dateString) {
+      return new Date(dateString);
+    }
   }
 
   const app = express();
