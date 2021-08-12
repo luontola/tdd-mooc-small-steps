@@ -11,41 +11,58 @@ function createApp(database) {
     if (age < 6) {
       return 0;
     } else {
-      let reduction = 0;
-      if (type !== "night") {
-        if (date && !isHoliday(date) && date.getDay() === 1) {
-          reduction = 35;
-        }
-
-        // TODO apply reduction for others
-        if (age < 15) {
-          return Math.ceil(baseCost * 0.7);
-        } else {
-          if (age === undefined) {
-            let cost = baseCost * (1 - reduction / 100);
-            return Math.ceil(cost);
-          } else {
-            if (age > 64) {
-              let cost = baseCost * 0.75 * (1 - reduction / 100);
-              return Math.ceil(cost);
-            } else {
-              let cost = baseCost * (1 - reduction / 100);
-              return Math.ceil(cost);
-            }
-          }
-        }
+      if (type === "night") {
+        return calculateCostForNightTicket(age, type, baseCost);
       } else {
-        if (age >= 6) {
-          if (age > 64) {
-            return Math.ceil(baseCost * 0.4);
-          } else {
-            return database.findBasePriceByType(type).cost;
-          }
+        return calculateCostForDayTicket(age, date, baseCost);
+      }
+    }
+  }
+
+  function calculateCostForNightTicket(age, type, baseCost) {
+    if (age >= 6) {
+      if (age > 64) {
+        return Math.ceil(baseCost * 0.4);
+      } else {
+        return baseCost;
+      }
+    } else {
+      return 0;
+    }
+  }
+
+  function calculateCostForDayTicket(age, date, baseCost) {
+    let reduction = calculateReduction(date);
+
+    // TODO apply reduction for others
+    if (age < 15) {
+      return Math.ceil(baseCost * 0.7);
+    } else {
+      if (age === undefined) {
+        let cost = baseCost * (1 - reduction / 100);
+        return Math.ceil(cost);
+      } else {
+        if (age > 64) {
+          let cost = baseCost * 0.75 * (1 - reduction / 100);
+          return Math.ceil(cost);
         } else {
-          return 0;
+          let cost = baseCost * (1 - reduction / 100);
+          return Math.ceil(cost);
         }
       }
     }
+  }
+
+  function calculateReduction(date) {
+    let reduction = 0;
+    if (date && isMonday(date) && !isHoliday(date)) {
+      reduction = 35;
+    }
+    return reduction;
+  }
+
+  function isMonday(date) {
+    return date.getDay() === 1;
   }
 
   function isHoliday(date) {
