@@ -33,29 +33,30 @@ function createApp(database) {
   });
 
   app.get("/prices", (req, res) => {
+    const age = req.query.age;
+    const type = req.query.type;
+    const baseCost = database.findBasePriceByType(type).cost;
     const date = parseDate(req.query.date);
-    const result = database.findBasePriceByType(req.query.type);
-    const baseCost = result.cost;
 
     let reduction;
-    if (req.query.age < 6) {
+    if (age < 6) {
       res.json({ cost: 0 });
     } else {
       reduction = 0;
-      if (req.query.type !== "night") {
+      if (type !== "night") {
         if (date && !isHoliday(date) && date.getDay() === 1) {
           reduction = 35;
         }
 
         // TODO apply reduction for others
-        if (req.query.age < 15) {
+        if (age < 15) {
           res.json({ cost: Math.ceil(baseCost * 0.7) });
         } else {
-          if (req.query.age === undefined) {
+          if (age === undefined) {
             let cost = baseCost * (1 - reduction / 100);
             res.json({ cost: Math.ceil(cost) });
           } else {
-            if (req.query.age > 64) {
+            if (age > 64) {
               let cost = baseCost * 0.75 * (1 - reduction / 100);
               res.json({ cost: Math.ceil(cost) });
             } else {
@@ -65,11 +66,11 @@ function createApp(database) {
           }
         }
       } else {
-        if (req.query.age >= 6) {
-          if (req.query.age > 64) {
+        if (age >= 6) {
+          if (age > 64) {
             res.json({ cost: Math.ceil(baseCost * 0.4) });
           } else {
-            res.json(result);
+            res.json(database.findBasePriceByType(type));
           }
         } else {
           res.json({ cost: 0 });
