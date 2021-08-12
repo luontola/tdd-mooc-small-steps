@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node .",
     "test": "mocha --recursive test/**/*.spec.mjs",
-    "autotest": "npm test -- --watch"
+    "autotest": "npm test -- --watch",
+    "format": "prettier --write ."
   },
   "mocha": {
     "parallel": true
@@ -22,6 +23,7 @@
     "express": "^4.17.1",
     "mocha": "^9.0.3",
     "mysql2": "^2.3.0",
+    "prettier": "^2.3.2",
     "supertest": "^6.1.5"
   }
 }
