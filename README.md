@@ -1,4 +1,4 @@
-# [TDD MOOC](https://tdd-mooc.luontola.fi/): Small, safe steps
+# [TDD MOOC](https://tdd.mooc.fi): Small, safe steps
 
 This is a refactoring exercise to practise doing small, safe steps.
 
@@ -18,7 +18,7 @@ Try [refactoring golf](http://codemanship.co.uk/parlezuml/blog/?postid=1360) and
 
 ---
 
-_This exercise is part of the [TDD MOOC](https://tdd-mooc.luontola.fi) at the University of Helsinki, brought to you
+_This exercise is part of the [TDD MOOC](https://tdd.mooc.fi) at the University of Helsinki, brought to you
 by [Esko Luontola](https://twitter.com/EskoLuontola) and [Nitor](https://nitor.com/). This exercise is based on
 the [Lift Pass Pricing Refactoring Kata](https://github.com/martinsson/Refactoring-Kata-Lift-Pass-Pricing)
 by [Johan Martinsson](https://twitter.com/johan_alps)._
