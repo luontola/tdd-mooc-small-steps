@@ -1,27 +1,8 @@
+import "./polyfills.mjs";
 import express from "express";
-import { Temporal, toTemporalInstant } from "@js-temporal/polyfill";
 
-Date.prototype.toTemporalInstant = toTemporalInstant;
-
-// Some examples of using the Temporal API
-// See https://tc39.es/proposal-temporal/docs/
-console.assert(
-  Temporal.PlainDate.from("2000-12-31").equals(
-    new Temporal.PlainDate(2000, 12, 31)
-  )
-);
-console.assert(
-  new Date(42)
-    .toTemporalInstant()
-    .equals(new Temporal.Instant.fromEpochMilliseconds(42))
-);
-console.assert(
-  new Date(42)
-    .toTemporalInstant()
-    .toZonedDateTimeISO("UTC")
-    .toPlainDate()
-    .equals(new Temporal.PlainDate(1970, 1, 1))
-);
+// Refactor the following code to get rid of the legacy Date class.
+// Use Temporal.PlainDate instead. See /test/date_conversion.spec.mjs for examples.
 
 function createApp(database) {
   function calculateCost(age, type, date, baseCost) {
