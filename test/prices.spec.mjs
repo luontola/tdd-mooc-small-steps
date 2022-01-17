@@ -3,7 +3,9 @@ import { InMemoryDatabase } from "../src/database.mjs";
 import request from "supertest";
 import { expect } from "chai";
 
-describe("prices", () => {
+describe("prices", function () {
+  this.retries(2);
+  this.timeout(2000);
   let app;
 
   beforeEach(async () => {
