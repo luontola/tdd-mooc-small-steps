@@ -16,6 +16,17 @@ Try out different approaches. For example refactor starting from where the `Date
 Get to know your IDE and the automated refactorings it provides.
 Try [refactoring golf](http://codemanship.co.uk/parlezuml/blog/?postid=1360) and get the lowest score possible.
 
+### TCR challenge
+
+If you set the environment variable `MAX_CHANGES` to `1` or higher, the tests will automatically check with Git that at
+most that many lines have been modified.
+
+This can be combined with [TCR](https://medium.com/@kentbeck_7670/test-commit-revert-870bbd756864): use
+the `npm run tcr` command to commit or revert the changes automatically depending on whether the tests passed.
+
+By default the TCR script will set `MAX_CHANGES=1`, but if you want to practise with a more lenient limit, try
+the `MAX_CHANGES=2 npm run tcr` command at first.
+
 ---
 
 _This exercise is part of the [TDD MOOC](https://tdd.mooc.fi) at the University of Helsinki, brought to you
@@ -41,6 +52,11 @@ Run tests once
 Run tests continuously
 
     npm run autotest
+
+Run tests [TCR](https://medium.com/@kentbeck_7670/test-commit-revert-870bbd756864) style. Defaults to `MAX_CHANGES=1`
+
+    npm run tcr
+    MAX_CHANGES=2 npm run tcr
 
 Start the application
 

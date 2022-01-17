@@ -9,6 +9,7 @@
     "start": "node .",
     "test": "mocha --recursive test/**/*.spec.mjs",
     "autotest": "npm test -- --watch",
+    "tcr": "node tcr.mjs",
     "format": "prettier --write ."
   },
   "mocha": {
