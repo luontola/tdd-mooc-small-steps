@@ -1,8 +1,13 @@
 import { execSync } from "child_process";
 import fs from "fs";
 
+function logCommand(command) {
+  console.log("\n> " + command);
+  return command;
+}
+
 function test() {
-  execSync("npm run test", {
+  execSync(logCommand("npm run test"), {
     stdio: "inherit",
     env: { ...process.env, MAX_CHANGES: process.env.MAX_CHANGES || "1" },
   });
@@ -10,14 +15,14 @@ function test() {
 
 function commit() {
   console.log("Tests passed -> Commit changes");
-  execSync("git commit --all --message='tcr: tests pass'", {
+  execSync(logCommand("git commit --all --message='tcr: tests pass'"), {
     stdio: "inherit",
   });
 }
 
 function revert() {
   console.log("Test failed -> Revert changes");
-  execSync("git reset --hard", { stdio: "inherit" });
+  execSync(logCommand("git reset --hard"), { stdio: "inherit" });
 }
 
 try {
