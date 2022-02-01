@@ -5,6 +5,30 @@ import express from "express";
 // Use Temporal.PlainDate instead. See /test/date_conversion.spec.mjs for examples.
 
 function createApp(database) {
+  const app = express();
+
+  app.put("/prices", (req, res) => {
+    const liftPassCost = req.query.cost;
+    const liftPassType = req.query.type;
+    database.setBasePrice(liftPassType, liftPassCost);
+    res.json();
+  });
+
+  app.get("/prices", (req, res) => {
+    const age = req.query.age;
+    const type = req.query.type;
+    const baseCost = database.findBasePriceByType(type).cost;
+    const date = parseDate(req.query.date);
+    const cost = calculateCost(age, type, date, baseCost);
+    res.json({ cost });
+  });
+
+  function parseDate(dateString) {
+    if (dateString) {
+      return new Date(dateString);
+    }
+  }
+
   function calculateCost(age, type, date, baseCost) {
     if (type === "night") {
       return calculateCostForNightTicket(age, baseCost);
@@ -70,30 +94,6 @@ function createApp(database) {
     }
     return false;
   }
-
-  function parseDate(dateString) {
-    if (dateString) {
-      return new Date(dateString);
-    }
-  }
-
-  const app = express();
-
-  app.put("/prices", (req, res) => {
-    const liftPassCost = req.query.cost;
-    const liftPassType = req.query.type;
-    database.setBasePrice(liftPassType, liftPassCost);
-    res.json();
-  });
-
-  app.get("/prices", (req, res) => {
-    const age = req.query.age;
-    const type = req.query.type;
-    const baseCost = database.findBasePriceByType(type).cost;
-    const date = parseDate(req.query.date);
-    const cost = calculateCost(age, type, date, baseCost);
-    res.json({ cost });
-  });
 
   return app;
 }
