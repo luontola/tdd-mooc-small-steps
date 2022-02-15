@@ -8,8 +8,8 @@ the [Temporal.PlainDate](https://tc39.es/proposal-temporal/docs/plaindate.html) 
 
 Repeat this refactoring many times.
 
-Focus on doing as small changes as possible, so that all the tests will pass between every change. Preferably change
-only one line at a time.
+Focus on doing as small changes as possible, so that all the tests will pass between every change. It's even possible to
+do this refactoring by changing only one line at a time.
 
 Try out different approaches. For example refactor starting from where the `Date` value is created vs. where it is used.
 
@@ -29,7 +29,7 @@ Such changes can be made mechanically in a second or two, without much thinking,
 Running all tests between every change, you'll find out immediately if you broke something, so fixing it is easy and
 quick. Often the fastest fix is to just undo the failed change and try again, but with even smaller steps.
 
-### Top-down refactoring
+### Example: parallel change
 
 One refactoring strategy is to start from where the old value is produced, create the new value there, and pass it
 side-by-side with the old value deeper down the call chain.
@@ -52,7 +52,7 @@ const cost = calculateCost(age, type, date, baseCost, date2);
 Next go inside the `calculateCost` function, change it to use `date2`, and forward the variable to the next level of
 functions. Repeat until every function has been migrated use `date2`.
 
-### Bottom-up refactoring
+### Example: conversion propagation
 
 Another refactoring strategy is to start where the old value is used, convert it there to the new value, and push the
 conversion up the call stack one function at a time.
