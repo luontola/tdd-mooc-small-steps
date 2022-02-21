@@ -1,5 +1,5 @@
 import "../src/polyfills.mjs";
-import {expect} from "chai";
+import { expect } from "chai";
 
 // Some examples of using the Temporal API
 // See https://tc39.es/proposal-temporal/docs/
@@ -17,7 +17,7 @@ describe("Date conversion", () => {
     expect(
       new Date(42)
         .toTemporalInstant()
-        .equals(new Temporal.Instant.fromEpochMilliseconds(42))
+        .equals(Temporal.Instant.fromEpochMilliseconds(42))
     ).to.be.true;
   });
 
