@@ -52,6 +52,8 @@ const cost = calculateCost(age, type, date, baseCost, date2);
 Next go inside the `calculateCost` function, change it to use `date2`, and forward the variable to the next level of
 functions. Repeat until every function has been migrated use `date2`.
 
+This refactoring strategy is demonstrated at https://youtu.be/MMAXNUCPMBw
+
 ### Example: conversion propagation
 
 Another refactoring strategy is to start where the old value is used, convert it there to the new value, and push the
@@ -85,6 +87,8 @@ function isMonday(date) {
 
 Repeat for each function, until the conversion has propagated up to the place where the old value is produced and you
 can produce the new value there directly.
+
+This refactoring strategy is demonstrated at https://youtu.be/5jXgXip5LhA
 
 ## TCR challenge
 
