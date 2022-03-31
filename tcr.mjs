@@ -15,7 +15,7 @@ function test() {
 
 function commit() {
   console.log("Tests passed -> Commit changes");
-  execSync(logCommand("git commit --all --message='tcr: tests pass'"), {
+  execSync(logCommand('git commit --all --message="tcr: tests pass"'), {
     stdio: "inherit",
   });
 }
