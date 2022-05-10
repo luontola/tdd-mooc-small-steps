@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import fs from "fs";
+import chokidar from "chokidar";
 
 function logCommand(command) {
   console.log("\n> " + command);
@@ -32,7 +32,7 @@ try {
   process.exit(1);
 }
 
-fs.watch("src", { recursive: true }, (_event, _filename) => {
+chokidar.watch("src").on("all", (_event, _path) => {
   const changes = execSync("git diff --numstat", { encoding: "utf8" });
   if (changes !== "") {
     try {
