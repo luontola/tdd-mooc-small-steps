@@ -6,6 +6,9 @@ This is a refactoring exercise to practise doing small, safe steps.
 the [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) class with
 the [Temporal.PlainDate](https://tc39.es/proposal-temporal/docs/plaindate.html) class.**
 
+(In [test/date_conversion.spec.mjs](test/date_conversion.spec.mjs) there are learning tests about using the Temporal
+API.)
+
 Repeat this refactoring many times.
 
 Focus on doing as small changes as possible, so that all the tests will pass between every change. It's even possible to
