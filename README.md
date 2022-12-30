@@ -11,13 +11,18 @@ API.)
 
 Repeat this refactoring many times.
 
-Focus on doing as small changes as possible, so that all the tests will pass between every change. It's even possible to
-do this refactoring by changing only one line at a time.
+Focus on doing as small changes as possible, so that all the tests will pass between every change. Make it your goal to
+change at most *2 lines* at a time. It's even possible to do this refactoring by changing only *1 line* at a time,
+though that will require some unconventional refactoring strategies and good familiarity with JavaScript, because then
+you can no longer change a function signature and all calls to that function at the same time. (In real life, changing
+1-3 lines at a time is normal.)
 
 Try out different approaches. For example refactor starting from where the `Date` value is created vs. where it is used.
+You may also try copying a function, changing the new function, and then migrating all code to use it one-by-one,
+instead of changing an existing function.
 
 Get to know your IDE and the automated refactorings it provides.
-Try [refactoring golf](http://codemanship.co.uk/parlezuml/blog/?postid=1360) and get the lowest score possible.
+Try [refactoring golf](https://github.com/daviddenton/refactoring-golf#readme) and get the lowest score possible.
 
 ## When is a change small?
 
@@ -32,10 +37,20 @@ Such changes can be made mechanically in a second or two, without much thinking,
 Running all tests between every change, you'll find out immediately if you broke something, so fixing it is easy and
 quick. Often the fastest fix is to just undo the failed change and try again, but with even smaller steps.
 
+With good support for automated refactorings in your IDE, it can expand the range of safe moves. For example, it may
+allow changing a function signature and all calls to that function in a single step.
+
 ### Example: parallel change
 
-One refactoring strategy is to start from where the old value is produced, create the new value there, and pass it
-side-by-side with the old value deeper down the call chain.
+One very common refactoring strategy is to have the new and old code exist side-by-side, until all code has been
+migrated to use the new code, and the old code can be removed.
+
+(It works also for entire systems, such as the change from [NMT](https://en.wikipedia.org/wiki/Nordic_Mobile_Telephone)
+to [GSM](https://en.wikipedia.org/wiki/GSM) networks. And lots of public sector IT projects fail because of doing a big
+bang release instead of parallel change.)
+
+For example, start from where the old value is produced, create the new value there, and pass it side-by-side with the
+old value deeper down the call chain.
 
 Example:
 
@@ -59,8 +74,12 @@ This refactoring strategy is demonstrated at https://youtu.be/MMAXNUCPMBw
 
 ### Example: conversion propagation
 
-Another refactoring strategy is to start where the old value is used, convert it there to the new value, and push the
-conversion up the call stack one function at a time.
+Another refactoring strategy is to create a migration boundary at one edge of the codebase, and push the migration
+incrementally through the whole codebase. This works when the old value contains all data necessary for producing the
+new value. (There's no official name for this refactoring, so let's call it _conversion propagation_ for now.)
+
+For example, start where the old value is used, and convert it to the new value right before using it. Push the
+conversion up the call stack one function at a time, until you reach where the old value was originally created.
 
 Example:
 
@@ -98,11 +117,13 @@ This refactoring strategy is demonstrated at https://youtu.be/5jXgXip5LhA
 If you set the environment variable `MAX_CHANGES` to `1` or higher, the tests will automatically check with Git that at
 most that many lines have been modified.
 
-This can be combined with [TCR](https://medium.com/@kentbeck_7670/test-commit-revert-870bbd756864): use
-the `npm run tcr` command to commit or revert the changes automatically depending on whether the tests passed.
+This can be combined with
+[test && commit || revert](https://medium.com/@kentbeck_7670/test-commit-revert-870bbd756864) (TCR):
 
-By default the TCR script will set `MAX_CHANGES=1`, but if you want to practise with a more lenient limit, try
-the `MAX_CHANGES=2 npm run tcr` command at first.
+Use the `npm run tcr` command to commit or revert the changes automatically depending on whether the tests passed.
+
+By default the `npm run tcr` command sets `MAX_CHANGES=1`. To practise with a more lenient limit, try
+starting with a value of 2: `MAX_CHANGES=2 npm run tcr` (Mac/Linux).
 
 If your editor runs [Prettier](https://prettier.io/) automatically on save, you might want to disable it to avoid
 accidentally changed lines.
