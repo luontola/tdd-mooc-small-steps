@@ -29,11 +29,11 @@ function createApp(database) {
     }
   }
 
-  function calculateCost(age, type, baseCost, date2) {
+  function calculateCost(age, type, baseCost, date) {
     if (type === "night") {
       return calculateCostForNightTicket(age, baseCost);
     } else {
-      return calculateCostForDayTicket(age, baseCost, date2);
+      return calculateCostForDayTicket(age, baseCost, date);
     }
   }
 
