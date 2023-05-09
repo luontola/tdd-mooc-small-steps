@@ -77,7 +77,7 @@ function createApp(database) {
   }
 
   function isMonday(date, date2) {
-    return date.getDay() === 1;
+    return date.getDay() === 1 && date2.dayOfWeek === 1;
   }
 
   function isHoliday(date) {
