@@ -23,8 +23,7 @@ function createApp(database) {
     res.json({ cost });
   });
 
-  function parseDate(dateString) {
-  }
+
 
   function calculateCost(age, type, baseCost, date) {
     if (type === "night") {
