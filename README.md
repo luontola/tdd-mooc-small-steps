@@ -85,7 +85,7 @@ Example:
 
 ```js
 function isMonday(date) {
-  return date.getDay() === 1;
+    return date.getDay() === 1;
 }
 ```
 
@@ -93,7 +93,7 @@ Migrate the lowest level function to use the converted value:
 
 ```js
 function isMonday(date) {
-  return convert(date).dayOfWeek === 1;
+    return convert(date).dayOfWeek === 1;
 }
 ```
 
@@ -103,7 +103,7 @@ function now takes the new value as a parameter:
 
 ```js
 function isMonday(date) {
-  return date.dayOfWeek === 1;
+    return date.dayOfWeek === 1;
 }
 ```
 
@@ -143,7 +143,7 @@ You'll need a recent [Node.js](https://nodejs.org/) version. Then download this 
 
 ## Developing
 
-This project uses [Mocha](https://mochajs.org/), [Chai](https://www.chaijs.com/)
+This project uses [Vitest](https://vitest.dev/), [Chai](https://www.chaijs.com/)
 and [SuperTest](https://github.com/visionmedia/supertest) for testing.
 
 Run tests once

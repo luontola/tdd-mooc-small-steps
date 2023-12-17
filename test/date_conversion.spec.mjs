@@ -1,5 +1,6 @@
 import "../src/polyfills.mjs";
 import { expect } from "chai";
+import { describe, it } from "vitest";
 
 // Some examples of using the Temporal API
 // See https://tc39.es/proposal-temporal/docs/
