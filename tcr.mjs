@@ -9,7 +9,7 @@ function logCommand(command) {
 function test() {
   execSync(logCommand("npm run test"), {
     stdio: "inherit",
-    env: { ...process.env, MAX_CHANGES: process.env.MAX_CHANGES || "1" },
+    env: { ...process.env, MAX_CHANGES: process.env.MAX_CHANGES || "2" },
   });
 }
 

@@ -122,8 +122,8 @@ This can be combined with
 
 Use the `npm run tcr` command to commit or revert the changes automatically depending on whether the tests passed.
 
-By default the `npm run tcr` command sets `MAX_CHANGES=1`. To practise with a more lenient limit, try
-starting with a value of 2: `MAX_CHANGES=2 npm run tcr` (Mac/Linux).
+By default the `npm run tcr` command sets `MAX_CHANGES=2`. To increase the difficulty, you can use the
+command: `MAX_CHANGES=1 npm run tcr` (Mac/Linux).
 
 If your editor runs [Prettier](https://prettier.io/) automatically on save, you might want to disable it to avoid
 accidentally changed lines.
