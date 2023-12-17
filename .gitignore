@@ -1,12 +1,2 @@
-node_modules/
-npm-debug.log
-typings
-.idea
-src/*.js
-test/*.js
-*.js.map
-tsconfig.tsbuildinfo
-
-dist/
-coverage/
-.nyc_output/
+/.idea/
+/node_modules/
