@@ -12,7 +12,7 @@ API.)
 Repeat this refactoring many times.
 
 Focus on doing as small changes as possible, so that all the tests will pass between every change. Make it your goal to
-change at most *2 lines* at a time. It's even possible to do this refactoring by changing only *1 line* at a time,
+change at most _2 lines_ at a time. It's even possible to do this refactoring by changing only _1 line_ at a time,
 though that will require some unconventional refactoring strategies and good familiarity with JavaScript, because then
 you can no longer change a function signature and all calls to that function at the same time. (In real life, changing
 1-3 lines at a time is normal.)
@@ -85,7 +85,7 @@ Example:
 
 ```js
 function isMonday(date) {
-    return date.getDay() === 1;
+  return date.getDay() === 1;
 }
 ```
 
@@ -93,7 +93,7 @@ Migrate the lowest level function to use the converted value:
 
 ```js
 function isMonday(date) {
-    return convert(date).dayOfWeek === 1;
+  return convert(date).dayOfWeek === 1;
 }
 ```
 
@@ -103,7 +103,7 @@ function now takes the new value as a parameter:
 
 ```js
 function isMonday(date) {
-    return date.dayOfWeek === 1;
+  return date.dayOfWeek === 1;
 }
 ```
 

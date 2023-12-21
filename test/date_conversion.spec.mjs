@@ -7,19 +7,11 @@ import { describe, it } from "vitest";
 
 describe("Date conversion", () => {
   it("String -> PlainDate", () => {
-    expect(
-      Temporal.PlainDate.from("2000-12-31").equals(
-        new Temporal.PlainDate(2000, 12, 31)
-      )
-    ).to.be.true;
+    expect(Temporal.PlainDate.from("2000-12-31").equals(new Temporal.PlainDate(2000, 12, 31))).to.be.true;
   });
 
   it("Date -> Instant", () => {
-    expect(
-      new Date(42)
-        .toTemporalInstant()
-        .equals(Temporal.Instant.fromEpochMilliseconds(42))
-    ).to.be.true;
+    expect(new Date(42).toTemporalInstant().equals(Temporal.Instant.fromEpochMilliseconds(42))).to.be.true;
   });
 
   it("Date -> PlainDate", () => {
@@ -28,7 +20,7 @@ describe("Date conversion", () => {
         .toTemporalInstant()
         .toZonedDateTimeISO("UTC")
         .toPlainDate()
-        .equals(new Temporal.PlainDate(1970, 1, 1))
+        .equals(new Temporal.PlainDate(1970, 1, 1)),
     ).to.be.true;
   });
 });

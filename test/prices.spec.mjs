@@ -31,9 +31,7 @@ describe(
       { age: 65, expectedCost: 27 },
     ].forEach(({ age, expectedCost }) => {
       it("works for all ages", async () => {
-        const { body } = await request(app).get(
-          `/prices?type=1jour&age=${age}`
-        );
+        const { body } = await request(app).get(`/prices?type=1jour&age=${age}`);
 
         expect(body.cost).equal(expectedCost);
       });
@@ -53,9 +51,7 @@ describe(
       { age: 65, expectedCost: 8 },
     ].forEach(({ age, expectedCost }) => {
       it("works for night passes", async () => {
-        const { body } = await request(app).get(
-          `/prices?type=night&age=${age}`
-        );
+        const { body } = await request(app).get(`/prices?type=night&age=${age}`);
 
         expect(body.cost).equal(expectedCost);
       });
@@ -68,9 +64,7 @@ describe(
       { age: 65, expectedCost: 18, date: "2019-03-11" }, // monday
     ].forEach(({ age, expectedCost, date }) => {
       it("works for monday deals", async () => {
-        const { body } = await request(app).get(
-          `/prices?type=1jour&age=${age}&date=${date}`
-        );
+        const { body } = await request(app).get(`/prices?type=1jour&age=${age}&date=${date}`);
 
         expect(body.cost).equal(expectedCost);
       });
@@ -78,5 +72,5 @@ describe(
 
     // TODO 2-4, and 5, 6 day pass
   },
-  { retry: 2, timeout: 2000 }
+  { retry: 2, timeout: 2000 },
 );

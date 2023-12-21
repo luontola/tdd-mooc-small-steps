@@ -26,14 +26,10 @@ describe("Small steps", () => {
         .split("\n")
         .map((line) => line.split("\t"))
         .filter((parts) => parts.length === 3)
-        .map(([added, removed, _filename]) =>
-          Math.max(parseInt(added, 10), parseInt(removed, 10))
-        )
+        .map(([added, removed, _filename]) => Math.max(parseInt(added, 10), parseInt(removed, 10)))
         .reduce((a, b) => a + b, 0);
 
-      expect(changes, "number of changed lines").to.be.lessThanOrEqual(
-        maxChanges
-      );
+      expect(changes, "number of changed lines").to.be.lessThanOrEqual(maxChanges);
     }
   });
 });
