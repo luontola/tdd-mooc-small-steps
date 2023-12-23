@@ -1,12 +1,16 @@
-import { createApp } from "../src/prices.mjs";
-import { InMemoryDatabase } from "../src/database.mjs";
-import request from "supertest";
-import { expect } from "chai";
 import { beforeEach, describe, it } from "vitest";
+import { expect } from "chai";
+import request from "supertest";
+import { InMemoryDatabase } from "../src/database.ts";
+import * as jsPrices from "../src/prices.mjs";
+import * as tsPrices from "../src/prices_typed";
 
-describe(
-  "prices",
-  () => {
+describe.each([
+  { variant: "JavaScript", createApp: jsPrices.createApp },
+  { variant: "TypeScript", createApp: tsPrices.createApp },
+])(
+  "prices ($variant)",
+  ({ createApp }) => {
     let app;
 
     beforeEach(async () => {

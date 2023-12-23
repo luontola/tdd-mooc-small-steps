@@ -1,6 +1,7 @@
-import "../src/polyfills.mjs";
-import { expect } from "chai";
 import { describe, it } from "vitest";
+import { expect } from "chai";
+import "../src/polyfills";
+import { Temporal } from "@js-temporal/polyfill";
 
 // Some examples of using the Temporal API
 // See https://tc39.es/proposal-temporal/docs/

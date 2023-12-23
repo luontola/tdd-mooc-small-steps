@@ -1,5 +1,5 @@
-import { expect } from "chai";
 import { describe, it } from "vitest";
+import { expect } from "chai";
 import util from "node:util";
 
 const exec = util.promisify(require("child_process").exec);
