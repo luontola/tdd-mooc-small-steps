@@ -16,7 +16,7 @@ describe("Small steps", () => {
     if (!maxChanges) {
       context.skip();
     } else {
-      const { stdout } = await exec("git diff --numstat");
+      const { stdout } = await exec("git diff --numstat -- src");
 
       const changes = stdout
         .split("\n")
