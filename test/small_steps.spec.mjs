@@ -2,10 +2,6 @@ import { expect } from "chai";
 import { describe, it } from "vitest";
 import util from "node:util";
 
-// Disable Vitest's smart watch mode and run these tests every time any source file changes
-import "../src/prices.mjs";
-import "../src/database.mjs";
-
 const exec = util.promisify(require("child_process").exec);
 
 function tryParseInt(str) {
