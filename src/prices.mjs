@@ -6,7 +6,9 @@ import express from "express";
 // Use Temporal.PlainDate instead. See /test/date_conversion.spec.mjs for examples.
 
 function convert(date) {
-    return Temporal.PlainDate.from(date);
+    return date.toTemporalInstant()
+        .toZonedDateTimeISO("UTC")
+        .toPlainDate();
 }
 
 function createApp(database) {
