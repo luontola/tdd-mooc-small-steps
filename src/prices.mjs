@@ -11,6 +11,7 @@ function convert(date) {
             .toZonedDateTimeISO("UTC")
             .toPlainDate();
     }
+    return date;
 }
 
 function createApp(database) {
