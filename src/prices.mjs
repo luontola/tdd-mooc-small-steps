@@ -25,7 +25,7 @@ function createApp(database) {
 
   function parseDate(dateString) {
     if (dateString) {
-      return new Date(dateString);
+      return new Date(dateString.replaceAll('-', '/'));
     }
   }
 
@@ -82,7 +82,7 @@ function createApp(database) {
   function isHoliday(date) {
     const holidays = database.getHolidays();
     for (let row of holidays) {
-      let holiday = new Date(row.holiday);
+      let holiday = new Date(row.holiday.replaceAll("-", "/"));
       if (
         date &&
         date.getFullYear() === holiday.getFullYear() &&
