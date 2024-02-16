@@ -27,6 +27,7 @@ function createApp(database: Database) {
   function parseDate(dateString: string | undefined): Date | undefined {
     if (dateString) {
       return new Date(dateString.replaceAll('-', '/'));
+      return new Date(dateString.replaceAll('-', '/'));
     }
   }
 
